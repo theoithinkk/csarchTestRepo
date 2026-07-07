@@ -7,5 +7,5 @@ import icon from 'astro-icon';
 export default defineConfig({
   integrations: [react(), mdx(), tailwind(), icon()],
   site: 'https://theoithinkk.github.io',
-  base: 'virtual-exhibit-template',
+  base: 'csarchTestRepo',
 });
