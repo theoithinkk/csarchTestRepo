@@ -430,6 +430,229 @@ label:has(input.sr-only:focus-visible) {
   .circuit-svg .circuit-anim { display: none; }
 }
 
+/* ── Class template chrome: HomepageLayout.astro / ExhibitLayout.astro ──
+   Ported verbatim from the original DLSU-Archcraft/virtual-exhibit-template
+   global.css (the locked stylesheet these layouts were built against),
+   since our own custom Tailwind theme never defined these classes. Scoped
+   with :has() so it only activates on pages that actually render the
+   locked layouts, leaving our own BaseLayout pages untouched. */
+:root {
+  --tpl-accent: #5076a7;
+  --tpl-bg1: #e2e2e2;
+  --tpl-bg2: #ffffff;
+  --tpl-text: #1e1e1e;
+  --tpl-muted: #646464;
+  --tpl-border: #cecece;
+  --tpl-radius: 8px;
+  --tpl-small: 0.8rem;
+}
+
+/* https://css-pattern.com/cubes-illusion/ */
+html:has(.titleheading),
+html:has(.header__titleblock) {
+  --s: 200px;
+  --tpl-c1: #2c2c2c;
+  --tpl-c2: #464148;
+  --tpl-c3: #3c3738;
+
+  background:
+    repeating-conic-gradient(from 30deg, #0000 0 120deg, var(--tpl-c3) 0 50%)
+      calc(var(--s) / 2) calc(var(--s) * tan(30deg) / 2),
+    repeating-conic-gradient(
+      from 30deg,
+      var(--tpl-c1) 0 60deg,
+      var(--tpl-c2) 0 120deg,
+      var(--tpl-c3) 0 50%
+    );
+  background-size: var(--s) calc(var(--s) * tan(30deg));
+}
+
+body:has(.titleheading),
+body:has(.header__titleblock) {
+  color: var(--tpl-text);
+  font-family: "Noto Sans Variable", sans-serif;
+  line-height: 1.5;
+  flex-direction: column;
+  display: flex;
+  min-height: 100vh;
+}
+
+.titleheading .title,
+.titleheading .subtitle {
+  margin-bottom: 0;
+  color: var(--tpl-bg2);
+  text-align: center;
+  font-size: 3rem;
+  font-family: "Lora Variable";
+  text-shadow: 5px 5px 0px var(--tpl-text);
+}
+
+.titleheading .subtitle {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.header {
+  align-items: center;
+  justify-content: space-between;
+  color: var(--tpl-text);
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+}
+
+.header__titleblock {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.header__subtitle {
+  font-size: var(--tpl-small);
+  opacity: 0.8;
+}
+
+.button {
+  align-items: center;
+  background-color: var(--tpl-bg2);
+  border-radius: 100px;
+  border: 2px solid var(--tpl-border);
+  color: var(--tpl-text);
+  display: inline-flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  text-decoration: none;
+  transition: border-color 0.1s ease;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.button:hover {
+  border-color: var(--tpl-accent);
+  color: var(--tpl-accent);
+}
+
+/* Main body */
+
+main.content {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 1rem;
+  max-width: 100%;
+  margin: auto;
+  padding: 0 1.5rem;
+  flex: 1;
+}
+
+.content__block {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  flex: 3;
+}
+
+.content__titlemeta {
+  text-align: center;
+}
+
+.content__titlemeta h1 {
+  margin-top: 0;
+  font-family: "Lora Variable";
+}
+
+/* Main exhibit article content */
+
+.header__titleblock,
+.article,
+.content__titlemeta,
+.exhibitlink {
+  background: var(--tpl-bg2);
+  border: 1px solid var(--tpl-border);
+  border-radius: var(--tpl-radius);
+  padding: 2rem;
+  box-shadow: 5px 5px;
+}
+
+.header__titleblock {
+  flex: 1;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.article h2,
+.article h3,
+.article h4,
+.article h5,
+.article h6 {
+  font-family: "Lora Variable";
+  border-bottom: 1px solid var(--tpl-border);
+}
+
+/* Table of contents */
+
+nav.toc {
+  background: var(--tpl-bg2);
+  border: 1px solid var(--tpl-border);
+  border-radius: var(--tpl-radius);
+  flex: 1;
+  height: fit-content;
+  padding: 2rem;
+  box-shadow: 5px 5px;
+}
+
+.padder {
+  box-shadow: none;
+  visibility: hidden;
+}
+
+nav.toc h2 {
+  border-bottom: 1px solid var(--tpl-border);
+  font-family: "Lora Variable";
+  margin-top: 0;
+  padding-bottom: 0.5rem;
+}
+
+.toc__list {
+  list-style: decimal;
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.toc__item a {
+  color: var(--tpl-accent);
+  text-decoration-style: dotted;
+}
+
+.toc__item a:hover {
+  text-decoration: underline;
+}
+
+body:has(.titleheading) footer,
+body:has(.header__titleblock) footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: var(--tpl-small);
+  background-color: var(--tpl-text);
+  color: var(--tpl-bg1);
+  margin-top: 4rem;
+}
+
+@media (min-width: 1100px) {
+  body:has(.titleheading) main.content,
+  body:has(.header__titleblock) main.content {
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+
+  body:has(.titleheading) nav.toc,
+  body:has(.header__titleblock) nav.toc {
+    position: sticky;
+    top: 2rem;
+  }
+}
+
 /* ── View Transitions ─────────────────────────────────────── */
 @keyframes vt-fade-out { to { opacity: 0; } }
 @keyframes vt-fade-in { from { opacity: 0; } }
